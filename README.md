@@ -2,6 +2,14 @@
 
 ## Overview
 Notepat is a text editor designed to enhance your writing experience by utilizing the capabilities of the OpenAI API for text analysis and formatting. It allows users to edit text seamlessly while offering formatting suggestions based on the context.
+![Alt text](NotePatWindowExample00.png?raw=true "")
+Correct spelling.
+![Alt text](NotePatWindowExample01.png?raw=true "")
+
+![Alt text](NotePatWindowExample02.png?raw=true "")
+generate code
+![Alt text](NotePatWindowExample03.png?raw=true "")
+
 
 ## Setup Instructions
 
