@@ -1,4 +1,4 @@
-# ![Alt text](notepat.png?raw=true "") ![Alt text](notepat.png?raw=true "") ![Alt text](notepat.png?raw=true "") Notepat README ![Alt text](notepat.png?raw=true "") ![Alt text](notepat.png?raw=true "") ![Alt text](notepat.png?raw=true "")
+# ![Alt text](assets/images/notepat.png?raw=true "") ![Alt text](assets/images/notepat.png?raw=true "") ![Alt text](assets/images/notepat.png?raw=true "") Notepat README ![Alt text](assets/images/notepat.png?raw=true "") ![Alt text](assets/images/notepat.png?raw=true "") ![Alt text](assets/images/notepat.png?raw=true "")
 
 ## Overview
 Notepat is a text editor designed to enhance your writing experience by utilizing the capabilities of the OpenAI API for text analysis and formatting. It allows users to edit text seamlessly while offering formatting suggestions based on the context.
@@ -7,21 +7,21 @@ Notepat is a text editor designed to enhance your writing experience by utilizin
 
 ### Text correction
 
-![Alt text](NotePatWindowExample00.png?raw=true "")
+![Alt text](assets/images/NotePatWindowExample00.png?raw=true "")
 
-![Alt text](NotePatWindowExample01.png?raw=true "")
+![Alt text](assets/images/NotePatWindowExample01.png?raw=true "")
 
 ### Code generation
 
-![Alt text](NotePatWindowExample02.png?raw=true "")
+![Alt text](assets/images/NotePatWindowExample02.png?raw=true "")
 
-![Alt text](NotePatWindowExample03.png?raw=true "")
+![Alt text](assets/images/NotePatWindowExample03.png?raw=true "")
 
 ### Command context recognition
 
-![Alt text](NotePatWindowExample04.png?raw=true "")
+![Alt text](assets/images/NotePatWindowExample04.png?raw=true "")
 
-![Alt text](NotePatWindowExample05.png?raw=true "")
+![Alt text](assets/images/NotePatWindowExample05.png?raw=true "")
 
 ## Setup Instructions
 
@@ -83,7 +83,6 @@ python notepat.py
 - Use `--question [text]` to pose a question and receive a response.
 - Use `--[custom]` to interpret and execute custom commands.
 
-
 ## Troubleshooting
 - If you encounter an error stating that the API key is not found, ensure that you have correctly set the `NOTEPAT_KEY` environment variable.
 - If issues arise while opening or saving files, check the file permissions and paths.
@@ -92,5 +91,3 @@ Enjoy using Notepat for your text editing needs!
 
 Miguel Campillos - miguelcampillos.com - https://github.com/thesimplesthings/NotePat
 MIT License
-
-

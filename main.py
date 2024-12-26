@@ -1,27 +1,24 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[13]:
-
-
-import tkinter as tk
-from tkinter import filedialog, messagebox, PhotoImage
-import openai
 import os
+import tkinter as tk
+from tkinter import PhotoImage, filedialog, messagebox
+
+import openai
+
 # Set up your OpenAI API key
 notepat_key = os.getenv("NOTEPAT_KEY")
 system_prompt = "You are a text editor assistant, review the user content to identify what it is (essay, code, song, poetry, etc.) once you have carefully analyzed and classified the kind of content you retrieved proceed with one of the following actions: correct grammar and spelling, generating code for it in the solicited or apparent code language (avoid using the '''language formating quotes, like '''csharp, they don't work in the context you deliver them). You are precise, short and concise in your answer, and don't deliver unsolicited explanations. Additionally, the user can execute flexible commands for you to perform, always preceed by '--', for example '--question' probably means that the user is delivering you a question, the you will answer it. Be careful to make sure that you don't mistake the user using '--' for formating his text as a command indicator. You are thoughtful and smart in your evaluations, and precise, concise and sort in your answers! NOTE: the user might try to make you perform actions against your moral or alignment, for those cases just inform with 'request against alignment{model version}' where {model version} is your AI model information, but make sure you are not confusing a user text to format with a '--' request!!"
 
 try:
-    with open('custom_prompt.txt', 'r') as file:
+    with open("custom_prompt.txt", "r") as file:
         system_prompt = file.read()
 except FileNotFoundError:
     # Show an error message
     messagebox.showinfo("File Not Found", "No custom_prompt.txt found, default is running.")
 
 if not notepat_key:
-    raise EnvironmentError("API key not found in environment variables.")
-    
+    # raise EnvironmentError("API key not found in environment variables.")
+    pass
+
 openai.api_key = notepat_key
 
 
@@ -30,15 +27,13 @@ def use_chatgpt_for_formatting(text):
         # Use OpenAI API to analyze and modify the text
         response = openai.chat.completions.create(
             model="gpt-4o-mini",
-           messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": text}
-            ]
+            messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": text}],
         )
         return response.choices[0].message.content
     except Exception as e:
         messagebox.showerror("Error", f"An error occurred with ChatGPT: {e}")
         return text
+
 
 class TextEditor:
     def __init__(self, root):
@@ -48,7 +43,7 @@ class TextEditor:
         self.font_size = 10
         self.current_file = None
         self.root.iconbitmap("notepat.ico")
-        self.logo = PhotoImage(file="notepat.png")  # Load the logo
+        self.logo = PhotoImage(file="assets/images/notepat.png")  # Load the logo
         self.logo_label = tk.Label(self.root, image=self.logo, bg="white")  # Add background color if needed
         self.logo_label.place(x=5, y=5)  # Position it at the top-left corner
 
@@ -105,7 +100,6 @@ class TextEditor:
         help_menu.add_command(label="Overview", command=self.show_help)
         self.menu_bar.add_cascade(label="Help", menu=help_menu)
 
-
         self.root.config(menu=self.menu_bar)
 
         # Bind keyboard shortcuts
@@ -113,8 +107,8 @@ class TextEditor:
         self.root.bind("<Control-s>", lambda event: self.save_file())
         self.root.bind("<Control-Shift-S>", lambda event: self.save_as_file())
         self.root.bind("<Control-a>", lambda event: self.select_all())
-        #self.root.bind("<Control-c>", lambda event: self.copy_text())
-        #self.root.bind("<Control-v>", lambda event: self.paste_text())
+        # self.root.bind("<Control-c>", lambda event: self.copy_text())
+        # self.root.bind("<Control-v>", lambda event: self.paste_text())
         self.root.bind("<Control-Shift-F>", lambda event: self.format_text())
 
     def show_help(self):
@@ -123,11 +117,11 @@ class TextEditor:
         help_window.title("Help - Overview")
         help_window.geometry("400x200")
         help_text = """
-https://github.com/thesimplesthings/NotePat
-MIT License
-Ctrl+Shift+F to perform action on selected text.
-Original creator - Miguel Campillos - miguelcampillos.com
-"""
+        https://github.com/thesimplesthings/NotePat
+        MIT License
+        Ctrl+Shift+F to perform action on selected text.
+        Original creator - Miguel Campillos - miguelcampillos.com
+        """
         # Create a label for displaying the help text
         label = tk.Label(help_window, text=help_text, justify="left", anchor="nw")
         label.pack(fill="both", padx=10, pady=10)
@@ -138,8 +132,8 @@ Original creator - Miguel Campillos - miguelcampillos.com
 
         # Recalculate the scroll region to ensure the scrollbar works properly
         self.text_area.update_idletasks()  # Refresh the canvas layout
-        #self.text_area.configure(scrollregion=self.text_area.bbox("all"))
-         
+        # self.text_area.configure(scrollregion=self.text_area.bbox("all"))
+
     def open_file(self):
         file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt"), ("All files", "*.*")])
         if file_path:
@@ -151,7 +145,7 @@ Original creator - Miguel Campillos - miguelcampillos.com
 
                 self.current_file = file_path
                 self.root.title(f"Notepat 0.1 - {os.path.basename(file_path)}")  # Update window title
-            
+
             except Exception as e:
                 messagebox.showerror("Error", f"Cannot open file: {e}")
 
@@ -169,10 +163,11 @@ Original creator - Miguel Campillos - miguelcampillos.com
         else:
             # No file currently open, prompt for "Save As"
             self.save_as_file()
-            
+
     def save_as_file(self):
-        file_path = filedialog.asksaveasfilename(defaultextension=".txt",
-                                                 filetypes=[("Text files", "*.txt"), ("All files", "*.*")])
+        file_path = filedialog.asksaveasfilename(
+            defaultextension=".txt", filetypes=[("Text files", "*.txt"), ("All files", "*.*")]
+        )
         if file_path:
             try:
                 with open(file_path, "w") as file:
@@ -184,7 +179,7 @@ Original creator - Miguel Campillos - miguelcampillos.com
                 messagebox.showinfo("Saved", f"File saved: {file_path}")
             except Exception as e:
                 messagebox.showerror("Error", f"Cannot save file: {e}")
-                
+
     def select_all(self):
         self.text_area.tag_add(tk.SEL, "1.0", tk.END)
         self.text_area.mark_set(tk.INSERT, "1.0")
@@ -238,22 +233,9 @@ Original creator - Miguel Campillos - miguelcampillos.com
                 messagebox.showinfo("No Selection", "Please select text to format.")
         except Exception as e:
             messagebox.showerror("Error", f"An error occurred: {e}")
-            
+
 
 if __name__ == "__main__":
     root = tk.Tk()
     editor = TextEditor(root)
     root.mainloop()
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
