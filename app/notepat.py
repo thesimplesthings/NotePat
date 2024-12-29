@@ -208,6 +208,7 @@ class NotePat:
         self.text_area.insert(start, text)
         self.text_area.tag_add("italic", start, end)
         self.text_area.tag_configure("italic", font=("TkDefaultFont", self.font_size, "italic"))
+        self.root.update()
 
     def _keep_the_changes(self, start: str, end: str):
         self.text_area.tag_remove("italic", start, end)
